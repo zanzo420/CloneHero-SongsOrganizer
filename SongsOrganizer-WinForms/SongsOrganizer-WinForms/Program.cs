@@ -21,6 +21,7 @@ namespace SongsOrganizer_WinForms
             //Application.Run(new Form1());
             INIFile newini = new INIFile(iniPath);
             SerializableData serializableData = newini.Deserialize();
+            newini.Serialize(serializableData);
             Console.WriteLine("Halo");
         }
     }

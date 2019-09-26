@@ -41,7 +41,18 @@ namespace INIFilesReader
 
         internal static void Serialize(string path, SerializableData serializableData)
         {
-            throw new NotImplementedException();
+            FileStream file = File.Create(path);
+            using (StreamWriter streamWriter = new StreamWriter(file))
+            {
+                for (int i = 0; i < serializableData.Headings.Count; i++)
+                {
+                    streamWriter.WriteLine("[" + serializableData.Headings[i] + "]");
+                    foreach (var pair in serializableData.Values[i])
+                    {
+                        streamWriter.WriteLine(pair.Key + "=" + pair.Value);
+                    }
+                }
+            }
         }
     }
 }

@@ -11,8 +11,8 @@ namespace SongsOrganizer_WinForms
     public class Song
     {
         public string DirectoryPath { get; set; }
-        private INIFile IniFile { get; set; }
-        private SerializableData SongData { get; set; }
+        public INIFile IniFile { get; set; }
+        public SerializableData SongData { get; set; }
 
         public Song(string path)
         {

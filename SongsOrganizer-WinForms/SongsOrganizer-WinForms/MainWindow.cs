@@ -29,9 +29,11 @@ namespace SongsOrganizer_WinForms
 
             InitializeComponent();
 
-            var bindingList = new BindingList<Song>(songs);
-            var source = new BindingSource(bindingList, null);
-            songsGrid.DataSource = source;
+            var songsList = songs.Select(s => new {
+                Directory = s.DirectoryPath,
+                INI_Path = s.IniFile.Path
+            }).ToList();
+            songsGrid.DataSource = songsList;
         }
 
         private void GetSongs(string directoryPath)

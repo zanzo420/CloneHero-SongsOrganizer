@@ -8,7 +8,7 @@ namespace INIFilesReader
 {
     public class INIFile
     {
-        private string Path;
+        public string Path { get; set; }
 
         public INIFile(string nPath)
         {

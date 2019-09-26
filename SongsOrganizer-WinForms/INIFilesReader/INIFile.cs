@@ -15,14 +15,14 @@ namespace INIFilesReader
             Path = nPath;
         }
 
-        public Song Deserialize()
+        public SerializableData Deserialize()
         {
-            return 
+            return INISerializer.Deserialize(Path);
         }
 
-        public void Serialize()
+        public void Serialize(SerializableData serializableData)
         {
-            INISerializer.Serialize(Path);
+            INISerializer.Serialize(Path, serializableData);
         }
     }
 }

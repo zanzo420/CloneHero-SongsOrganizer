@@ -4,11 +4,15 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using INIFilesReader;
 
 namespace SongsOrganizer_WinForms
 {
     public class Song
     {
-        
+        public Song(SerializableData serializableData)
+        {
+
+        }
     }
 }

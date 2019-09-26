@@ -1,28 +1,52 @@
 ﻿using INIFilesReader;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SongsOrganizer_WinForms
 {
-    static class Program
+    class Program
     {
-        static string iniPath = @"E:\Gry\Clone Hero\Songs\GH-F. Guitar Hero - World Tour\GH-G. Guitar Hero - World Tour\02 - About a Girl (Unplugged)\song.ini";
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        static readonly string songsDirectory = @"E:\Gry\Clone Hero\Songs";
+        static List<Song> songs = new List<Song>();
+
         [STAThread]
         static void Main()
         {
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
-            INIFile newini = new INIFile(iniPath);
-            SerializableData serializableData = newini.Deserialize();
-            newini.Serialize(serializableData);
-            Console.WriteLine("Halo");
+
+            GetSongs(songsDirectory);
+            //INIFile newini = new INIFile(iniPath);
+            //SerializableData serializableData = newini.Deserialize();
+            //newini.Serialize(serializableData);
+            foreach (Song s in songs)
+            {
+                s.SongInitialize();
+            }
+            Console.WriteLine("Found: " + songs.Count + " songs");
+        }
+
+        static void GetSongs(string directoryPath)
+        {
+            List<string> files = new List<string>(Directory.EnumerateFiles(directoryPath));
+            foreach (string f in files)
+            {
+                if (f.EndsWith("song.ini"))
+                {
+                    songs.Add(new Song(directoryPath));
+                    return;
+                }
+            }
+            List<string> dirs = new List<string>(Directory.EnumerateDirectories(directoryPath));
+            foreach (string d in dirs)
+            {
+                GetSongs(d);
+            }
         }
     }
 }

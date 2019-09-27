@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.dsadasdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.songsGrid = new System.Windows.Forms.DataGridView();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.chooseDirectoryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadSongsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.revertChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.songsGrid)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -48,38 +50,56 @@
             this.panel1.Size = new System.Drawing.Size(800, 450);
             this.panel1.TabIndex = 0;
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dsadasdToolStripMenuItem});
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(125, 20);
-            this.toolStripMenuItem1.Text = "toolStripMenuItem1";
-            // 
-            // dsadasdToolStripMenuItem
-            // 
-            this.dsadasdToolStripMenuItem.Name = "dsadasdToolStripMenuItem";
-            this.dsadasdToolStripMenuItem.Size = new System.Drawing.Size(117, 22);
-            this.dsadasdToolStripMenuItem.Text = "dsadasd";
-            // 
             // songsGrid
             // 
+            this.songsGrid.AllowUserToOrderColumns = true;
             this.songsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.songsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.songsGrid.Location = new System.Drawing.Point(0, 24);
             this.songsGrid.Name = "songsGrid";
             this.songsGrid.Size = new System.Drawing.Size(800, 426);
             this.songsGrid.TabIndex = 1;
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chooseDirectoryMenuItem,
+            this.reloadSongsToolStripMenuItem,
+            this.revertChangesToolStripMenuItem,
+            this.saveChangesToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // chooseDirectoryMenuItem
+            // 
+            this.chooseDirectoryMenuItem.Name = "chooseDirectoryMenuItem";
+            this.chooseDirectoryMenuItem.Size = new System.Drawing.Size(110, 20);
+            this.chooseDirectoryMenuItem.Text = "Choose Directory";
+            this.chooseDirectoryMenuItem.Click += new System.EventHandler(this.chooseDirectoryMenuItem_Click);
+            // 
+            // reloadSongsToolStripMenuItem
+            // 
+            this.reloadSongsToolStripMenuItem.Name = "reloadSongsToolStripMenuItem";
+            this.reloadSongsToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.reloadSongsToolStripMenuItem.Text = "Reload Songs";
+            this.reloadSongsToolStripMenuItem.Click += new System.EventHandler(this.reloadSongsToolStripMenuItem_Click);
+            // 
+            // revertChangesToolStripMenuItem
+            // 
+            this.revertChangesToolStripMenuItem.Name = "revertChangesToolStripMenuItem";
+            this.revertChangesToolStripMenuItem.Size = new System.Drawing.Size(101, 20);
+            this.revertChangesToolStripMenuItem.Text = "Revert Changes";
+            this.revertChangesToolStripMenuItem.Click += new System.EventHandler(this.revertChangesToolStripMenuItem_Click);
+            // 
+            // saveChangesToolStripMenuItem
+            // 
+            this.saveChangesToolStripMenuItem.Name = "saveChangesToolStripMenuItem";
+            this.saveChangesToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
+            this.saveChangesToolStripMenuItem.Text = "Save Changes";
+            this.saveChangesToolStripMenuItem.Click += new System.EventHandler(this.saveChangesToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -92,9 +112,9 @@
             this.Text = "CloneHero - Songs Organizer";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.songsGrid)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.songsGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -103,9 +123,11 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem dsadasdToolStripMenuItem;
         private System.Windows.Forms.DataGridView songsGrid;
+        private System.Windows.Forms.ToolStripMenuItem chooseDirectoryMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reloadSongsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem revertChangesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveChangesToolStripMenuItem;
     }
 }
 

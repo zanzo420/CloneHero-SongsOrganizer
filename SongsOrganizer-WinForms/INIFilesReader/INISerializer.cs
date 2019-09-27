@@ -29,9 +29,9 @@ namespace INIFilesReader
 
                 if (l.Contains("="))
                 {
-                    if (newData.Values[heading].Keys.Contains(l.Substring(0, l.IndexOf('=')).ToLower()))
+                    if (newData.Values[heading].Keys.Contains(l.Substring(0, l.IndexOf('=')).ToLower().Trim()))
                         continue;
-                    newData.Values[heading].Add(l.Substring(0, l.IndexOf('=')).ToLower(), l.Substring(l.IndexOf('=') + 1));
+                    newData.Values[heading].Add(l.Substring(0, l.IndexOf('=')).ToLower().Trim(), l.Substring(l.IndexOf('=') + 1).Trim());
                 }
                 else
                     continue;

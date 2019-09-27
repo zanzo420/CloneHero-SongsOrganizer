@@ -44,8 +44,28 @@ namespace SongsOrganizer_WinForms
             }
         }
 
-        private void InitializeSongsGrid()
+        private void chooseDirectoryMenuItem_Click(object sender, EventArgs e)
         {
+            using (var fbd = new FolderBrowserDialog())
+            {
+                fbd.Description = "Choose songs directory";
+                fbd.SelectedPath = songsDirectory;
+
+                DialogResult result = fbd.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                {
+                    songsDirectory = fbd.SelectedPath;
+                    ReloadSongsGridView();
+                }
+            }
+        }
+
+        private void ReloadSongsGridView()
+        {
+            songs.Clear();
+            GetSongs();
+
             Console.WriteLine("Found: " + songs.Count + " songs");
             int i = 0;
             foreach (Song s in songs)
@@ -60,34 +80,13 @@ namespace SongsOrganizer_WinForms
                 Name = s.SongAttributes.Name
             }).ToList();
             songsGrid.DataSource = songsList;
-        }
 
-        private void chooseDirectoryMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var fbd = new FolderBrowserDialog())
+            foreach (DataGridViewColumn column in songsGrid.Columns)
             {
-                fbd.Description = "Choose songs directory";
-                fbd.SelectedPath = songsDirectory;
-
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-                {
-                    songsDirectory = fbd.SelectedPath;
-                    ReloadSongsGridView();
-
-                    string[] files = Directory.GetFiles(fbd.SelectedPath);
-
-                    System.Windows.Forms.MessageBox.Show("Files found: " + files.Length.ToString(), "Message");
-                }
+                column.SortMode = DataGridViewColumnSortMode.Automatic;
             }
-        }
 
-        private void ReloadSongsGridView()
-        {
-            songs.Clear();
-            GetSongs();
-            InitializeSongsGrid();
+            MessageBox.Show("Found and initialized " + songs.Count + " songs");
         }
 
         private void reloadSongsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -106,6 +105,7 @@ namespace SongsOrganizer_WinForms
                     n++;
                 }
             }
+            MessageBox.Show("Reverted changes for " + n + " songs");
             Console.WriteLine("Reverted changes for " + n + " songs");
         }
 
@@ -120,6 +120,7 @@ namespace SongsOrganizer_WinForms
                     n++;
                 }
             }
+            MessageBox.Show("Saved changes for " + n + " songs");
             Console.WriteLine("Saved changes for " + n + " songs");
         }
     }

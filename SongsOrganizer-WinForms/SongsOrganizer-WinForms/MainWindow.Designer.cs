@@ -57,6 +57,7 @@
             this.songsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.songsGrid.Location = new System.Drawing.Point(0, 24);
             this.songsGrid.Name = "songsGrid";
+            this.songsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.songsGrid.Size = new System.Drawing.Size(800, 426);
             this.songsGrid.TabIndex = 1;
             // 

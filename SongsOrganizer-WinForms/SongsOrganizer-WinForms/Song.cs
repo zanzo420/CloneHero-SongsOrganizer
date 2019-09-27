@@ -59,13 +59,16 @@ namespace SongsOrganizer_WinForms
             switch (key)
             {
                 case "name":
+                    if (SongAttributes.Name != newValue)
+                        HasChanged = true;
                     SongAttributes.Name = newValue;
                     break;
                 case "artist":
+                    if (SongAttributes.Artist != newValue)
+                        HasChanged = true;
                     SongAttributes.Artist = newValue;
                     break;
             }
-            HasChanged = true;
         }
 
         public void RevertChanges()

@@ -15,7 +15,7 @@ namespace SongsOrganizer_WinForms
     {
         private string songsDirectory = @"E:\Gry\Clone Hero\Songs";
         private List<Song> songs = new List<Song>();
-        private int previousColumnIndex = -1;
+        private int previousColumnIndex = 2;
         private bool sortAscending = true;
 
         public MainWindow()
@@ -90,12 +90,12 @@ namespace SongsOrganizer_WinForms
                 Console.WriteLine("Initialized " + ++i + "/" + songs.Count);
             }
 
-            RefreshSongsGridView();
+            RefreshSongsGridView(true);
 
             MessageBox.Show("Found and initialized " + songs.Count + " songs");
         }
 
-        private void RefreshSongsGridView()
+        private void RefreshSongsGridView(bool newDirectory = false)
         {
             int ind = -1;
             if (songsGrid.SelectedRows.Count > 0)
@@ -110,11 +110,17 @@ namespace SongsOrganizer_WinForms
                 Name = s.SongAttributes.Name
             }).ToList();
             songsGrid.DataSource = songsList;
+            songsGrid.DataSource = SortSongs(previousColumnIndex);
 
-            if (songsGrid.Rows.Count > 0)
-                songsGrid.Rows[0].Selected = false;
-            if (ind != -1)
+            songsGrid.Columns["Index"].Visible = false;
+            songsGrid.Columns["Directory"].Visible = false;
+
+            songsGrid.ClearSelection();
+            if (ind != -1 && !newDirectory)
+            {
                 songsGrid.Rows[ind].Selected = true;
+                songsGrid.CurrentCell = songsGrid.Rows[ind].Cells[songsGrid.Columns.Count - 1];
+            }
         }
 
         private void reloadSongsToolStripMenuItem_Click(object sender, EventArgs e)

@@ -36,6 +36,41 @@ namespace SongsOrganizer_WinForms
                     albumPictureBox.Image = Image.FromFile(directory + @"\album.png");
                     break;
                 }
+                if (f.EndsWith("album.Png"))
+                {
+                    albumPictureBox.Image = Image.FromFile(directory + @"\album.Png");
+                    break;
+                }
+                if (f.EndsWith("album.pNg"))
+                {
+                    albumPictureBox.Image = Image.FromFile(directory + @"\album.pNg");
+                    break;
+                }
+                if (f.EndsWith("album.pnG"))
+                {
+                    albumPictureBox.Image = Image.FromFile(directory + @"\album.pnG");
+                    break;
+                }
+                if (f.EndsWith("album.PNg"))
+                {
+                    albumPictureBox.Image = Image.FromFile(directory + @"\album.PNg");
+                    break;
+                }
+                if (f.EndsWith("album.pNG"))
+                {
+                    albumPictureBox.Image = Image.FromFile(directory + @"\album.pNG");
+                    break;
+                }
+                if (f.EndsWith("album.PnG"))
+                {
+                    albumPictureBox.Image = Image.FromFile(directory + @"\album.PnG");
+                    break;
+                }
+                if (f.EndsWith("album.PNG"))
+                {
+                    albumPictureBox.Image = Image.FromFile(directory + @"\album.PNG");
+                    break;
+                }
             }
 
             directoryLabel.Text = directory;

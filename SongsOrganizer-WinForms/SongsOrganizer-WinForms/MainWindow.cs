@@ -198,8 +198,8 @@ namespace SongsOrganizer_WinForms
 
                 if (result == DialogResult.OK)
                 {
-                    tSong.ChangeValue("name", esw.curName);
-                    tSong.ChangeValue("artist", esw.curArtist);
+                    tSong.ChangeValue("name", esw.curName.Trim());
+                    tSong.ChangeValue("artist", esw.curArtist.Trim());
                 }
             }
             RefreshSongsGridView();

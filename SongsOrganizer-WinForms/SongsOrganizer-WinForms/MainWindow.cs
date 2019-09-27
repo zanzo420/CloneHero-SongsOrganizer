@@ -35,7 +35,7 @@ namespace SongsOrganizer_WinForms
             {
                 if (f.EndsWith("song.ini"))
                 {
-                    songs.Add(new Song(directoryPath));
+                    songs.Add(new Song(directoryPath, songs.Count));
                     return;
                 }
             }
@@ -48,17 +48,31 @@ namespace SongsOrganizer_WinForms
 
         private void chooseDirectoryMenuItem_Click(object sender, EventArgs e)
         {
-            using (var fbd = new FolderBrowserDialog())
+            int n = 0;
+            foreach (Song s in songs)
             {
-                fbd.Description = "Choose songs directory";
-                fbd.SelectedPath = songsDirectory;
-
-                DialogResult result = fbd.ShowDialog();
-
-                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                if (s.HasChanged)
                 {
-                    songsDirectory = fbd.SelectedPath;
-                    ReloadSongsGridView();
+                    n++;
+                }
+            }
+
+            if (n > 0)
+                MessageBox.Show(n + " songs has been changed, revert changes or save them before reloading");
+            else
+            {
+                using (var fbd = new FolderBrowserDialog())
+                {
+                    fbd.Description = "Choose songs directory";
+                    fbd.SelectedPath = songsDirectory;
+
+                    DialogResult result = fbd.ShowDialog();
+
+                    if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+                    {
+                        songsDirectory = fbd.SelectedPath;
+                        ReloadSongsGridView();
+                    }
                 }
             }
         }
@@ -76,24 +90,48 @@ namespace SongsOrganizer_WinForms
                 Console.WriteLine("Initialized " + ++i + "/" + songs.Count);
             }
 
-            var songsList = songs.Select(s => new GridViewSongData{
+            RefreshSongsGridView();
+
+            MessageBox.Show("Found and initialized " + songs.Count + " songs");
+        }
+
+        private void RefreshSongsGridView()
+        {
+            int ind = -1;
+            if (songsGrid.SelectedRows.Count > 0)
+                ind = songsGrid.SelectedRows[0].Index;
+            songsGrid.DataSource = null;
+
+            var songsList = songs.Select(s => new GridViewSongData
+            {
+                Index = s.Index,
                 Directory = s.DirectoryPath,
                 Artist = s.SongAttributes.Artist,
                 Name = s.SongAttributes.Name
             }).ToList();
             songsGrid.DataSource = songsList;
 
-            foreach (DataGridViewColumn column in songsGrid.Columns)
-            {
-                column.SortMode = DataGridViewColumnSortMode.Automatic;
-            }
-
-            MessageBox.Show("Found and initialized " + songs.Count + " songs");
+            if (songsGrid.Rows.Count > 0)
+                songsGrid.Rows[0].Selected = false;
+            if (ind != -1)
+                songsGrid.Rows[ind].Selected = true;
         }
 
         private void reloadSongsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReloadSongsGridView();
+            int n = 0;
+            foreach (Song s in songs)
+            {
+                if (s.HasChanged)
+                {
+                    n++;
+                }
+            }
+
+            if (n > 0)
+                MessageBox.Show(n + " songs has been changed, revert changes or save them before reloading");
+            else
+                ReloadSongsGridView();
         }
 
         private void revertChangesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,6 +145,7 @@ namespace SongsOrganizer_WinForms
                     n++;
                 }
             }
+            RefreshSongsGridView();
             MessageBox.Show("Reverted changes for " + n + " songs");
             Console.WriteLine("Reverted changes for " + n + " songs");
         }
@@ -145,6 +184,25 @@ namespace SongsOrganizer_WinForms
                 return (list.OrderBy(s => s.GetType().GetProperty("Name").GetValue(s))).OrderBy(s => s.GetType().GetProperty(songsGrid.Columns[columnIndex].Name).GetValue(s)).ToList();
             else
                 return (list.OrderBy(s => s.GetType().GetProperty("Name").GetValue(s))).OrderByDescending(s => s.GetType().GetProperty(songsGrid.Columns[columnIndex].Name).GetValue(s)).ToList();
+        }
+
+        private void songsGrid_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            Song tSong = songs[(int)songsGrid.Rows[e.RowIndex].Cells["Index"].Value];
+            using (var esw = new EditSongWindow(tSong.SongAttributes.Name, tSong.SongAttributes.Artist, tSong.DirectoryPath))
+            {
+                DialogResult result = esw.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    tSong.ChangeValue("name", esw.curName);
+                    tSong.ChangeValue("artist", esw.curArtist);
+                }
+            }
+            RefreshSongsGridView();
         }
     }
 }

@@ -10,17 +10,22 @@ namespace SongsOrganizer_WinForms
 {
     public class Song
     {
+        private string name;
+        private Song song;
+
+        public int Index { get; set; }
         public string DirectoryPath { get; set; }
         public INIFile IniFile { get; set; }
         public SerializableData SongData { get; set; }
         public bool HasChanged { get; set; }
         public SongAttributes SongAttributes { get; }
 
-        public Song(string path)
+        public Song(string path, int ind)
         {
             DirectoryPath = path;
             HasChanged = false;
             SongAttributes = new SongAttributes();
+            Index = ind;
         }
 
         public void SongInitialize()
@@ -51,13 +56,22 @@ namespace SongsOrganizer_WinForms
 
         public void ChangeValue(string key, string newValue)
         {
-            SongData.Values[0][key] = newValue;
+            switch (key)
+            {
+                case "name":
+                    SongAttributes.Name = newValue;
+                    break;
+                case "artist":
+                    SongAttributes.Artist = newValue;
+                    break;
+            }
             HasChanged = true;
         }
 
         public void RevertChanges()
         {
             InitializeSongAttributes();
+            HasChanged = false;
         }
     }
 }

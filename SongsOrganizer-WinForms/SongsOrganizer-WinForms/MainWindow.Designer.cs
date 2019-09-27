@@ -55,11 +55,13 @@
             this.songsGrid.AllowUserToOrderColumns = true;
             this.songsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.songsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.songsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.songsGrid.Location = new System.Drawing.Point(0, 24);
             this.songsGrid.Name = "songsGrid";
             this.songsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.songsGrid.Size = new System.Drawing.Size(800, 426);
             this.songsGrid.TabIndex = 1;
+            this.songsGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_CellMouseDoubleClick);
             this.songsGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_ColumnHeaderMouseClick);
             // 
             // menuStrip1

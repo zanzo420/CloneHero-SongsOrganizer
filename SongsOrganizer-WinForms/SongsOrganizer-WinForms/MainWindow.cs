@@ -99,7 +99,7 @@ namespace SongsOrganizer_WinForms
         {
             int ind = -1;
             if (songsGrid.SelectedRows.Count > 0)
-                ind = songsGrid.SelectedRows[0].Index;
+                ind = (int)songsGrid.SelectedRows[0].Cells["Index"].Value;
             songsGrid.DataSource = null;
 
             var songsList = songs.Select(s => new GridViewSongData
@@ -118,8 +118,15 @@ namespace SongsOrganizer_WinForms
             songsGrid.ClearSelection();
             if (ind != -1 && !newDirectory)
             {
-                songsGrid.Rows[ind].Selected = true;
-                songsGrid.CurrentCell = songsGrid.Rows[ind].Cells[songsGrid.Columns.Count - 1];
+                foreach (DataGridViewRow r in songsGrid.Rows)
+                {
+                    if ((int)r.Cells["Index"].Value == ind)
+                    {
+                        r.Selected = true;
+                        songsGrid.CurrentCell = r.Cells[songsGrid.Columns.Count - 1];
+                        break;
+                    }
+                }
             }
         }
 
@@ -209,6 +216,15 @@ namespace SongsOrganizer_WinForms
                 }
             }
             RefreshSongsGridView();
+        }
+
+        private void songsGrid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+            if (songs[(int)songsGrid.Rows[e.RowIndex].Cells["Index"].Value].HasChanged)
+            {
+                songsGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
+                songsGrid.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Green;
+            }
         }
     }
 }

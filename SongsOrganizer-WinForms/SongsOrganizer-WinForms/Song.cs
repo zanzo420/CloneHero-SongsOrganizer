@@ -10,9 +10,6 @@ namespace SongsOrganizer_WinForms
 {
     public class Song
     {
-        private string name;
-        private Song song;
-
         public int Index { get; set; }
         public string DirectoryPath { get; set; }
         public INIFile IniFile { get; set; }

@@ -63,6 +63,7 @@
             this.songsGrid.TabIndex = 1;
             this.songsGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_CellMouseDoubleClick);
             this.songsGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_ColumnHeaderMouseClick);
+            this.songsGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.songsGrid_RowPrePaint);
             // 
             // menuStrip1
             // 

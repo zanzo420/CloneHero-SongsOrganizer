@@ -60,6 +60,7 @@
             this.songsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.songsGrid.Size = new System.Drawing.Size(800, 426);
             this.songsGrid.TabIndex = 1;
+            this.songsGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_ColumnHeaderMouseClick);
             // 
             // menuStrip1
             // 

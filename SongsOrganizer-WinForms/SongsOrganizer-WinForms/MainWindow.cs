@@ -15,6 +15,8 @@ namespace SongsOrganizer_WinForms
     {
         private string songsDirectory = @"E:\Gry\Clone Hero\Songs";
         private List<Song> songs = new List<Song>();
+        private int previousColumnIndex = -1;
+        private bool sortAscending = true;
 
         public MainWindow()
         {
@@ -74,7 +76,7 @@ namespace SongsOrganizer_WinForms
                 Console.WriteLine("Initialized " + ++i + "/" + songs.Count);
             }
 
-            var songsList = songs.Select(s => new {
+            var songsList = songs.Select(s => new GridViewSongData{
                 Directory = s.DirectoryPath,
                 Artist = s.SongAttributes.Artist,
                 Name = s.SongAttributes.Name
@@ -122,6 +124,27 @@ namespace SongsOrganizer_WinForms
             }
             MessageBox.Show("Saved changes for " + n + " songs");
             Console.WriteLine("Saved changes for " + n + " songs");
+        }
+
+        private void songsGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex == previousColumnIndex)
+                sortAscending = !sortAscending;
+            else
+                sortAscending = true;
+
+            previousColumnIndex = e.ColumnIndex;
+
+            songsGrid.DataSource = SortSongs(e.ColumnIndex);
+        }
+
+        private List<GridViewSongData> SortSongs(int columnIndex)
+        {
+            List<GridViewSongData> list = (List<GridViewSongData>)songsGrid.DataSource;
+            if (sortAscending)
+                return (list.OrderBy(s => s.GetType().GetProperty("Name").GetValue(s))).OrderBy(s => s.GetType().GetProperty(songsGrid.Columns[columnIndex].Name).GetValue(s)).ToList();
+            else
+                return (list.OrderBy(s => s.GetType().GetProperty("Name").GetValue(s))).OrderByDescending(s => s.GetType().GetProperty(songsGrid.Columns[columnIndex].Name).GetValue(s)).ToList();
         }
     }
 }

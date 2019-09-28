@@ -39,7 +39,7 @@
             this.deleteMarkedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.songsGridContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editSongContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.contextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.markForDeletionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.revertChangesContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
@@ -75,6 +75,7 @@
             this.songsGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_CellMouseDoubleClick);
             this.songsGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_CellMouseDown);
             this.songsGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_ColumnHeaderMouseClick);
+            this.songsGrid.RowContextMenuStripNeeded += new System.Windows.Forms.DataGridViewRowContextMenuStripNeededEventHandler(this.songsGrid_RowContextMenuStripNeeded);
             this.songsGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.songsGrid_RowPrePaint);
             // 
             // menuStrip1
@@ -130,7 +131,7 @@
             // 
             this.songsGridContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editSongContextMenuItem,
-            this.toolStripSeparator1,
+            this.contextMenuSeparator,
             this.markForDeletionContextMenuItem,
             this.revertChangesContextMenuItem});
             this.songsGridContextMenuStrip.Name = "songsGridContextMenuStrip";
@@ -143,10 +144,10 @@
             this.editSongContextMenuItem.Text = "Edit Song";
             this.editSongContextMenuItem.Click += new System.EventHandler(this.editSongContextMenuItem_Click);
             // 
-            // toolStripSeparator1
+            // contextMenuSeparator
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.contextMenuSeparator.Name = "contextMenuSeparator";
+            this.contextMenuSeparator.Size = new System.Drawing.Size(177, 6);
             // 
             // markForDeletionContextMenuItem
             // 
@@ -193,7 +194,7 @@
         private System.Windows.Forms.ToolStripMenuItem deleteMarkedToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip songsGridContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem editSongContextMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator contextMenuSeparator;
         private System.Windows.Forms.ToolStripMenuItem markForDeletionContextMenuItem;
         private System.Windows.Forms.ToolStripMenuItem revertChangesContextMenuItem;
     }

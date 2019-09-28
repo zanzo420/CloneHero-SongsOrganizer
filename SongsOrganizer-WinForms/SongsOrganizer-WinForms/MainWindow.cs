@@ -100,9 +100,11 @@ namespace SongsOrganizer_WinForms
 
         private void RefreshSongsGridView(bool newDirectory = false)
         {
-            int ind = -1;
-            if (songsGrid.SelectedRows.Count > 0)
-                ind = (int)songsGrid.SelectedRows[0].Cells["Index"].Value;
+            List<int> indexes = new List<int>();
+            foreach (DataGridViewRow r in songsGrid.SelectedRows)
+            {
+                indexes.Add((int)r.Cells["Index"].Value);
+            }
             songsGrid.DataSource = null;
 
             var songsList = songs.Select(s => new GridViewSongData
@@ -119,15 +121,14 @@ namespace SongsOrganizer_WinForms
             songsGrid.Columns["Directory"].Visible = false;
 
             songsGrid.ClearSelection();
-            if (ind != -1 && !newDirectory)
+            if (indexes.Count > 0 && !newDirectory)
             {
                 foreach (DataGridViewRow r in songsGrid.Rows)
                 {
-                    if ((int)r.Cells["Index"].Value == ind)
+                    if (indexes.Contains((int)r.Cells["Index"].Value))
                     {
                         r.Selected = true;
                         songsGrid.CurrentCell = r.Cells[songsGrid.Columns.Count - 1];
-                        break;
                     }
                 }
             }
@@ -315,22 +316,53 @@ namespace SongsOrganizer_WinForms
 
         private void editSongContextMenuItem_Click(object sender, EventArgs e)
         {
+            if (songsGrid.SelectedRows.Count == 0)
+                return;
+
             int ind = (int)songsGrid.Rows[songsGrid.CurrentCell.RowIndex].Cells["Index"].Value;
             EditSong(ind);
         }
 
         private void markForDeletionContextMenuItem_Click(object sender, EventArgs e)
         {
-            songs[(int)songsGrid.Rows[songsGrid.CurrentCell.RowIndex].Cells["Index"].Value].MarkForDeletion();
+            foreach (DataGridViewRow r in songsGrid.SelectedRows)
+            {
+                songs[(int)r.Cells["Index"].Value].MarkForDeletion();
+            }
             CheckChanges();
             RefreshSongsGridView();
         }
 
         private void revertChangesContextMenuItem_Click(object sender, EventArgs e)
         {
-            songs[(int)songsGrid.Rows[songsGrid.CurrentCell.RowIndex].Cells["Index"].Value].RevertChanges();
+            foreach (DataGridViewRow r in songsGrid.SelectedRows)
+            {
+                songs[(int)r.Cells["Index"].Value].RevertChanges();
+            }
             CheckChanges();
             RefreshSongsGridView();
+        }
+
+        private void songsGrid_RowContextMenuStripNeeded(object sender, DataGridViewRowContextMenuStripNeededEventArgs e)
+        {
+            if (songsGrid.SelectedRows.Count == 0)
+            {
+                e.ContextMenuStrip = null;
+            }
+            else if (songsGrid.SelectedRows.Count == 1)
+            {
+                editSongContextMenuItem.Visible = true;
+                contextMenuSeparator.Visible = true;
+                markForDeletionContextMenuItem.Visible = true;
+                revertChangesContextMenuItem.Visible = true;
+            }
+            else
+            {
+                editSongContextMenuItem.Visible = false;
+                contextMenuSeparator.Visible = false;
+                markForDeletionContextMenuItem.Visible = true;
+                revertChangesContextMenuItem.Visible = true;
+            }
         }
     }
 }

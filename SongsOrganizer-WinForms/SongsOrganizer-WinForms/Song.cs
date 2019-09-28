@@ -80,7 +80,7 @@ namespace SongsOrganizer_WinForms
 
         public void MarkForDeletion()
         {
-            MarkedForDeletion = !MarkedForDeletion;
+            MarkedForDeletion = true;
         }
 
         public void DeleteSong()

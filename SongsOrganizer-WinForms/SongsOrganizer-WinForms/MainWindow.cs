@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -345,13 +346,11 @@ namespace SongsOrganizer_WinForms
 
         private void songsGrid_RowContextMenuStripNeeded(object sender, DataGridViewRowContextMenuStripNeededEventArgs e)
         {
-            if (songsGrid.SelectedRows.Count == 0)
-            {
-                e.ContextMenuStrip = null;
-            }
-            else if (songsGrid.SelectedRows.Count == 1)
+            if (songsGrid.SelectedRows.Count == 1)
             {
                 editSongContextMenuItem.Visible = true;
+                openSongDirectoryContextMenuItem.Visible = true;
+                openSonginiFileContextMenuItem.Visible = true;
                 contextMenuSeparator.Visible = true;
                 markForDeletionContextMenuItem.Visible = true;
                 revertChangesContextMenuItem.Visible = true;
@@ -359,10 +358,28 @@ namespace SongsOrganizer_WinForms
             else
             {
                 editSongContextMenuItem.Visible = false;
+                openSongDirectoryContextMenuItem.Visible = false;
+                openSonginiFileContextMenuItem.Visible = false;
                 contextMenuSeparator.Visible = false;
                 markForDeletionContextMenuItem.Visible = true;
                 revertChangesContextMenuItem.Visible = true;
             }
+        }
+
+        private void openSongDirectoryContextMenuItem_Click(object sender, EventArgs e)
+        {
+            if (songsGrid.SelectedRows.Count == 0)
+                return;
+
+            Process.Start(songs[(int)songsGrid.Rows[songsGrid.CurrentCell.RowIndex].Cells["Index"].Value].DirectoryPath);
+        }
+
+        private void openSonginiFileContextMenuItem_Click(object sender, EventArgs e)
+        {
+            if (songsGrid.SelectedRows.Count == 0)
+                return;
+
+            Process.Start(songs[(int)songsGrid.Rows[songsGrid.CurrentCell.RowIndex].Cells["Index"].Value].DirectoryPath + @"\song.ini");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -15,12 +16,14 @@ namespace SongsOrganizer_WinForms
         public INIFile IniFile { get; set; }
         public SerializableData SongData { get; set; }
         public bool HasChanged { get; set; }
+        public bool MarkedForDeletion { get; set; }
         public SongAttributes SongAttributes { get; }
 
         public Song(string path, int ind)
         {
             DirectoryPath = path;
             HasChanged = false;
+            MarkedForDeletion = false;
             SongAttributes = new SongAttributes();
             Index = ind;
         }
@@ -72,6 +75,17 @@ namespace SongsOrganizer_WinForms
         {
             InitializeSongAttributes();
             HasChanged = false;
+            MarkedForDeletion = false;
+        }
+
+        public void MarkForDeletion()
+        {
+            MarkedForDeletion = !MarkedForDeletion;
+        }
+
+        public void DeleteSong()
+        {
+            Directory.Delete(DirectoryPath, true);
         }
     }
 }

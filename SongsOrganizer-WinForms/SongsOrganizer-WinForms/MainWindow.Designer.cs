@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.songsGrid = new System.Windows.Forms.DataGridView();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -35,9 +36,16 @@
             this.reloadSongsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.revertChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteMarkedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.songsGridContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editSongContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.markForDeletionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.revertChangesContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.songsGrid)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.songsGridContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -52,8 +60,11 @@
             // 
             // songsGrid
             // 
-            this.songsGrid.AllowUserToOrderColumns = true;
+            this.songsGrid.AllowUserToAddRows = false;
+            this.songsGrid.AllowUserToDeleteRows = false;
+            this.songsGrid.AllowUserToResizeRows = false;
             this.songsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.songsGrid.ContextMenuStrip = this.songsGridContextMenuStrip;
             this.songsGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.songsGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.songsGrid.Location = new System.Drawing.Point(0, 24);
@@ -62,6 +73,7 @@
             this.songsGrid.Size = new System.Drawing.Size(800, 426);
             this.songsGrid.TabIndex = 1;
             this.songsGrid.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_CellMouseDoubleClick);
+            this.songsGrid.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_CellMouseDown);
             this.songsGrid.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.songsGrid_ColumnHeaderMouseClick);
             this.songsGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.songsGrid_RowPrePaint);
             // 
@@ -71,7 +83,8 @@
             this.chooseDirectoryMenuItem,
             this.reloadSongsToolStripMenuItem,
             this.revertChangesToolStripMenuItem,
-            this.saveChangesToolStripMenuItem});
+            this.saveChangesToolStripMenuItem,
+            this.deleteMarkedToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(800, 24);
@@ -106,6 +119,49 @@
             this.saveChangesToolStripMenuItem.Text = "Save Changes";
             this.saveChangesToolStripMenuItem.Click += new System.EventHandler(this.saveChangesToolStripMenuItem_Click);
             // 
+            // deleteMarkedToolStripMenuItem
+            // 
+            this.deleteMarkedToolStripMenuItem.Name = "deleteMarkedToolStripMenuItem";
+            this.deleteMarkedToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
+            this.deleteMarkedToolStripMenuItem.Text = "Delete Marked";
+            this.deleteMarkedToolStripMenuItem.Click += new System.EventHandler(this.deleteMarkedToolStripMenuItem_Click);
+            // 
+            // songsGridContextMenuStrip
+            // 
+            this.songsGridContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editSongContextMenuItem,
+            this.toolStripSeparator1,
+            this.markForDeletionContextMenuItem,
+            this.revertChangesContextMenuItem});
+            this.songsGridContextMenuStrip.Name = "songsGridContextMenuStrip";
+            this.songsGridContextMenuStrip.Size = new System.Drawing.Size(181, 98);
+            // 
+            // editSongContextMenuItem
+            // 
+            this.editSongContextMenuItem.Name = "editSongContextMenuItem";
+            this.editSongContextMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.editSongContextMenuItem.Text = "Edit Song";
+            this.editSongContextMenuItem.Click += new System.EventHandler(this.editSongContextMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // markForDeletionContextMenuItem
+            // 
+            this.markForDeletionContextMenuItem.Name = "markForDeletionContextMenuItem";
+            this.markForDeletionContextMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.markForDeletionContextMenuItem.Text = "Mark for deletion";
+            this.markForDeletionContextMenuItem.Click += new System.EventHandler(this.markForDeletionContextMenuItem_Click);
+            // 
+            // revertChangesContextMenuItem
+            // 
+            this.revertChangesContextMenuItem.Name = "revertChangesContextMenuItem";
+            this.revertChangesContextMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.revertChangesContextMenuItem.Text = "Revert changes";
+            this.revertChangesContextMenuItem.Click += new System.EventHandler(this.revertChangesContextMenuItem_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -120,6 +176,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.songsGrid)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.songsGridContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -133,6 +190,12 @@
         private System.Windows.Forms.ToolStripMenuItem reloadSongsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem revertChangesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveChangesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteMarkedToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip songsGridContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem editSongContextMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem markForDeletionContextMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem revertChangesContextMenuItem;
     }
 }
 

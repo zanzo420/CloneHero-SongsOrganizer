@@ -23,6 +23,7 @@ namespace SongsOrganizer_WinForms
             InitializeComponent();
 
             ReloadSongsGridView();
+            CheckChanges();
         }
 
         private void GetSongs(string directoryPath = null)
@@ -93,6 +94,8 @@ namespace SongsOrganizer_WinForms
             RefreshSongsGridView(true);
 
             MessageBox.Show("Found and initialized " + songs.Count + " songs");
+
+            CheckChanges();
         }
 
         private void RefreshSongsGridView(bool newDirectory = false)
@@ -161,6 +164,8 @@ namespace SongsOrganizer_WinForms
             RefreshSongsGridView();
             MessageBox.Show("Reverted changes for " + n + " songs");
             Console.WriteLine("Reverted changes for " + n + " songs");
+
+            CheckChanges();
         }
 
         private void saveChangesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -176,6 +181,8 @@ namespace SongsOrganizer_WinForms
             }
             MessageBox.Show("Saved changes for " + n + " songs");
             Console.WriteLine("Saved changes for " + n + " songs");
+
+            CheckChanges();
         }
 
         private void songsGrid_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -204,7 +211,13 @@ namespace SongsOrganizer_WinForms
             if (e.RowIndex < 0)
                 return;
 
-            Song tSong = songs[(int)songsGrid.Rows[e.RowIndex].Cells["Index"].Value];
+            int ind = (int)songsGrid.Rows[e.RowIndex].Cells["Index"].Value;
+            EditSong(ind);
+        }
+
+        private void EditSong(int ind)
+        {
+            Song tSong = songs[ind];
             using (var esw = new EditSongWindow(tSong.SongAttributes.Name, tSong.SongAttributes.Artist, tSong.DirectoryPath))
             {
                 DialogResult result = esw.ShowDialog();
@@ -215,7 +228,36 @@ namespace SongsOrganizer_WinForms
                     tSong.ChangeValue("artist", esw.curArtist.Trim());
                 }
             }
+            CheckChanges();
             RefreshSongsGridView();
+        }
+
+        private void CheckChanges()
+        {
+            bool changed = false;
+            bool marked = false;
+            foreach (Song s in songs)
+            {
+                if (s.HasChanged)
+                    changed = true;
+                if (s.MarkedForDeletion)
+                    marked = true;
+                if (changed && marked)
+                    break;
+            }
+
+            saveChangesToolStripMenuItem.Enabled = false;
+            revertChangesToolStripMenuItem.Enabled = false;
+            deleteMarkedToolStripMenuItem.Enabled = false;
+            if (changed)
+            {
+                saveChangesToolStripMenuItem.Enabled = true;
+                revertChangesToolStripMenuItem.Enabled = true;
+            }
+            if (marked)
+            {
+                deleteMarkedToolStripMenuItem.Enabled = true;
+            }
         }
 
         private void songsGrid_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
@@ -225,6 +267,70 @@ namespace SongsOrganizer_WinForms
                 songsGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightGreen;
                 songsGrid.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.Green;
             }
+            if (songs[(int)songsGrid.Rows[e.RowIndex].Cells["Index"].Value].MarkedForDeletion)
+            {
+                songsGrid.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.Red;
+                songsGrid.Rows[e.RowIndex].DefaultCellStyle.SelectionBackColor = Color.DarkRed;
+            }
+        }
+
+        private void deleteMarkedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int n = 0;
+            for (int i = 0; i < songs.Count; i++)
+            {
+                if (songs[i].MarkedForDeletion)
+                {
+                    DialogResult dialogResult = MessageBox.Show($"Are you sure you want to delete: {songs[i].SongAttributes.Artist} - {songs[i].SongAttributes.Name}?", "Delete?", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        songs[i].DeleteSong();
+                        songs.RemoveAt(i);
+                        i--;
+                        n++;
+                    }
+                }
+            }
+            if (n > 0)
+            {
+                MessageBox.Show("Deleted " + n + " songs");
+                Console.WriteLine("Deleted " + n + " songs");
+                ReloadSongsGridView();
+            }
+        }
+
+        private void songsGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.ColumnIndex != -1 && e.RowIndex != -1 && e.Button == MouseButtons.Right)
+            {
+                DataGridViewCell c = (sender as DataGridView)[e.ColumnIndex, e.RowIndex];
+                if (!c.Selected)
+                {
+                    c.DataGridView.ClearSelection();
+                    c.DataGridView.CurrentCell = c;
+                    c.Selected = true;
+                }
+            }
+        }
+
+        private void editSongContextMenuItem_Click(object sender, EventArgs e)
+        {
+            int ind = (int)songsGrid.Rows[songsGrid.CurrentCell.RowIndex].Cells["Index"].Value;
+            EditSong(ind);
+        }
+
+        private void markForDeletionContextMenuItem_Click(object sender, EventArgs e)
+        {
+            songs[(int)songsGrid.Rows[songsGrid.CurrentCell.RowIndex].Cells["Index"].Value].MarkForDeletion();
+            CheckChanges();
+            RefreshSongsGridView();
+        }
+
+        private void revertChangesContextMenuItem_Click(object sender, EventArgs e)
+        {
+            songs[(int)songsGrid.Rows[songsGrid.CurrentCell.RowIndex].Cells["Index"].Value].RevertChanges();
+            CheckChanges();
+            RefreshSongsGridView();
         }
     }
 }

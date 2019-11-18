@@ -14,8 +14,7 @@ namespace SongsOrganizer_WinForms
 {
     public partial class MainWindow : Form
     {
-        private string songsDirectory = @"E:\Gry\Clone Hero\Songs";
-        private List<Song> songs = new List<Song>();
+		private List<Song> songs = new List<Song>();
         private int previousColumnIndex = 2;
         private bool sortAscending = true;
 
@@ -23,18 +22,17 @@ namespace SongsOrganizer_WinForms
         {
             InitializeComponent();
 
-			while (!Directory.Exists(songsDirectory))
+			while (!Directory.Exists(Settings.SongsDirectory))
 			{
 				using (var fbd = new FolderBrowserDialog())
 				{
 					fbd.Description = "Choose songs directory";
-					fbd.SelectedPath = songsDirectory;
 
 					DialogResult result = fbd.ShowDialog();
 
 					if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
 					{
-						songsDirectory = fbd.SelectedPath;
+						Settings.SongsDirectory = fbd.SelectedPath;
 					}
 				}
 			}
@@ -46,7 +44,7 @@ namespace SongsOrganizer_WinForms
         private void GetSongs(string directoryPath = null)
         {
             if (directoryPath == null)
-                directoryPath = songsDirectory;
+                directoryPath = Settings.SongsDirectory;
 
             List<string> files = new List<string>(Directory.EnumerateFiles(directoryPath));
             foreach (string f in files)
@@ -82,13 +80,13 @@ namespace SongsOrganizer_WinForms
                 using (var fbd = new FolderBrowserDialog())
                 {
                     fbd.Description = "Choose songs directory";
-                    fbd.SelectedPath = songsDirectory;
+                    fbd.SelectedPath = Settings.SongsDirectory;
 
                     DialogResult result = fbd.ShowDialog();
 
                     if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                     {
-                        songsDirectory = fbd.SelectedPath;
+                        Settings.SongsDirectory = fbd.SelectedPath;
                         ReloadSongsGridView();
                     }
                 }

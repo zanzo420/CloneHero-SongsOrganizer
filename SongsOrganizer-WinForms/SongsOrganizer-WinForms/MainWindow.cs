@@ -23,7 +23,23 @@ namespace SongsOrganizer_WinForms
         {
             InitializeComponent();
 
-            ReloadSongsGridView();
+			while (!Directory.Exists(songsDirectory))
+			{
+				using (var fbd = new FolderBrowserDialog())
+				{
+					fbd.Description = "Choose songs directory";
+					fbd.SelectedPath = songsDirectory;
+
+					DialogResult result = fbd.ShowDialog();
+
+					if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
+					{
+						songsDirectory = fbd.SelectedPath;
+					}
+				}
+			}
+
+			ReloadSongsGridView();
             CheckChanges();
         }
 

@@ -22,47 +22,21 @@ namespace SongsOrganizer_WinForms
         {
             InitializeComponent();
 
-			while (!Directory.Exists(Settings.SongsDirectory))
+            Settings.SongsDirectory = "pizda";
+
+            if (Directory.Exists(Settings.SongsDirectory))
+                ReloadSongsGridView();
+
+            while (!Directory.Exists(Settings.SongsDirectory))
 			{
-				using (var fbd = new FolderBrowserDialog())
-				{
-					fbd.Description = "Choose songs directory";
-
-					DialogResult result = fbd.ShowDialog();
-
-					if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
-					{
-						Settings.SongsDirectory = fbd.SelectedPath;
-					}
-				}
+                MessageBox.Show("Couldn't find a Clone Hero's songs directory. Please choose a correct folder.");
+                ChooseSongsDirectory();
 			}
 
-			ReloadSongsGridView();
             CheckChanges();
         }
 
-        private void GetSongs(string directoryPath = null)
-        {
-            if (directoryPath == null)
-                directoryPath = Settings.SongsDirectory;
-
-            List<string> files = new List<string>(Directory.EnumerateFiles(directoryPath));
-            foreach (string f in files)
-            {
-                if (f.EndsWith("song.ini"))
-                {
-                    songs.Add(new Song(directoryPath, songs.Count));
-                    return;
-                }
-            }
-            List<string> dirs = new List<string>(Directory.EnumerateDirectories(directoryPath));
-            foreach (string d in dirs)
-            {
-                GetSongs(d);
-            }
-        }
-
-        private void chooseDirectoryMenuItem_Click(object sender, EventArgs e)
+        private void ChooseSongsDirectory()
         {
             int n = 0;
             foreach (Song s in songs)
@@ -91,6 +65,32 @@ namespace SongsOrganizer_WinForms
                     }
                 }
             }
+        }
+
+        private void GetSongs(string directoryPath = null)
+        {
+            if (directoryPath == null)
+                directoryPath = Settings.SongsDirectory;
+
+            List<string> files = new List<string>(Directory.EnumerateFiles(directoryPath));
+            foreach (string f in files)
+            {
+                if (f.EndsWith("song.ini"))
+                {
+                    songs.Add(new Song(directoryPath, songs.Count));
+                    return;
+                }
+            }
+            List<string> dirs = new List<string>(Directory.EnumerateDirectories(directoryPath));
+            foreach (string d in dirs)
+            {
+                GetSongs(d);
+            }
+        }
+
+        private void chooseDirectoryMenuItem_Click(object sender, EventArgs e)
+        {
+            ChooseSongsDirectory();
         }
 
         private void ReloadSongsGridView()

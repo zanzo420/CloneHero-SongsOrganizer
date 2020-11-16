@@ -127,7 +127,8 @@ namespace SongsOrganizer_WinForms
                 Index = s.Index,
                 Directory = s.DirectoryPath,
                 Artist = s.SongAttributes.Artist,
-                Name = s.SongAttributes.Name
+                Name = s.SongAttributes.Name,
+                Album = s.SongAttributes.Album
             }).ToList();
             songsGrid.DataSource = songsList;
             songsGrid.DataSource = SortSongs(previousColumnIndex);

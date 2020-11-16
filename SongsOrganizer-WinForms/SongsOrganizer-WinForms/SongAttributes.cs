@@ -10,11 +10,13 @@ namespace SongsOrganizer_WinForms
     {
         public string Name { get; set; }
         public string Artist { get; set; }
+        public string Album { get; set; }
 
         public SongAttributes()
         {
             Name = "NO_SONG_NAME";
             Artist = "NO_ARTIST";
+            Album = "NO_ALBUM";
         }
     }
 }

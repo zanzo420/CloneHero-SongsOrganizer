@@ -42,6 +42,8 @@ namespace SongsOrganizer_WinForms
                 SongAttributes.Artist = SongData.Values[0]["artist"];
             if (SongData.Values[0].ContainsKey("name"))
                 SongAttributes.Name = SongData.Values[0]["name"];
+            if (SongData.Values[0].ContainsKey("album"))
+                SongAttributes.Album = SongData.Values[0]["album"];
         }
 
         public void SaveSong()
@@ -50,6 +52,8 @@ namespace SongsOrganizer_WinForms
                 SongData.Values[0]["artist"] = SongAttributes.Artist;
             if (SongData.Values[0].ContainsKey("name"))
                 SongData.Values[0]["name"] = SongAttributes.Name;
+            if (SongData.Values[0].ContainsKey("album"))
+                SongData.Values[0]["album"] = SongAttributes.Name;
 
             IniFile.Serialize(SongData);
         }

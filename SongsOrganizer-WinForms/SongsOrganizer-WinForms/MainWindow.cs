@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SongsOrganizer_WinForms
+namespace zCHSongManager
 {
     public partial class MainWindow : Form
     {
@@ -128,7 +128,30 @@ namespace SongsOrganizer_WinForms
                 Directory = s.DirectoryPath,
                 Artist = s.SongAttributes.Artist,
                 Name = s.SongAttributes.Name,
-                Album = s.SongAttributes.Album
+                Album = s.SongAttributes.Album,
+                Genre = s.SongAttributes.Genre,
+                Charter = s.SongAttributes.Charter,
+                Year = s.SongAttributes.Year,
+                ModChart = s.SongAttributes.ModChart,
+                Length = s.SongAttributes.Length,
+                /*Difficulties*/
+                Diff_Band = s.SongAttributes.Diff_Band,
+                Diff_Guitar = s.SongAttributes.Diff_Guitar,
+                Diff_Bass = s.SongAttributes.Diff_Bass,
+                Diff_Drums = s.SongAttributes.Diff_Drums,
+                Diff_Vocals = s.SongAttributes.Diff_Vocals,
+                Diff_Keys = s.SongAttributes.Diff_Keys,
+                Diff_GuitarCoop = s.SongAttributes.Diff_GuitarCoop,
+                Diff_Rhythm = s.SongAttributes.Diff_Rhythm,
+                /*Pro Difficulties*/
+                Diff_ProGuitar = s.SongAttributes.Diff_ProGuitar,
+                Diff_ProBass = s.SongAttributes.Diff_ProBass,
+                Diff_ProDrums = s.SongAttributes.Diff_ProDrums,
+                Diff_ProKeys = s.SongAttributes.Diff_ProKeys,
+                Diff_Vocals_Harm = s.SongAttributes.Diff_Vocals_Harm,
+                /*Guitar Hero Live*/
+                Diff_GuitarGHL = s.SongAttributes.Diff_GuitarGHL,
+                Diff_BassGHL = s.SongAttributes.Diff_BassGHL
             }).ToList();
             songsGrid.DataSource = songsList;
             songsGrid.DataSource = SortSongs(previousColumnIndex);
@@ -235,7 +258,7 @@ namespace SongsOrganizer_WinForms
         private void EditSong(int ind)
         {
             Song tSong = songs[ind];
-            using (var esw = new EditSongWindow(tSong.SongAttributes.Name, tSong.SongAttributes.Artist, tSong.DirectoryPath))
+            using (var esw = new EditSongWindow(tSong.SongAttributes.Name, tSong.SongAttributes.Artist, tSong.DirectoryPath, tSong.SongAttributes.Album, tSong.SongAttributes.Genre, tSong.SongAttributes.Charter, tSong.SongAttributes.Year, tSong.SongAttributes.Length))
             {
                 DialogResult result = esw.ShowDialog();
 

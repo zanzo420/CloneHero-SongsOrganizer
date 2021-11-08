@@ -1,4 +1,4 @@
-﻿namespace SongsOrganizer_WinForms
+﻿namespace zCHSongManager
 {
     partial class MainWindow
     {
@@ -189,7 +189,7 @@
             this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
-            this.Text = "CloneHero - Songs Organizer";
+            this.Text = "[zH4x™] CloneHero Song Manager";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.songsGrid)).EndInit();

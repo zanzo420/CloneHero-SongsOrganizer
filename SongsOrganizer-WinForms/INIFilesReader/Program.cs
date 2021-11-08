@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SongsOrganizer_WinForms
+namespace zCHSongManager
 {
     static class Program
     {

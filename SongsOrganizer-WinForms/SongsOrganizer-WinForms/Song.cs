@@ -155,10 +155,30 @@ namespace zCHSongManager
                         HasChanged = true;
                     SongAttributes.Artist = newValue;
                     break;
+                case "album":
+                    if (SongAttributes.Album != newValue)
+                        HasChanged = true;
+                    SongAttributes.Album = newValue;
+                    break;
+                case "genre":
+                    if (SongAttributes.Genre != newValue)
+                        HasChanged = true;
+                    SongAttributes.Genre = newValue;
+                    break;
                 case "charter":
                     if (SongAttributes.Charter != newValue)
                         HasChanged = true;
                     SongAttributes.Charter = newValue;
+                    break;
+                case "year":
+                    if (SongAttributes.Year != newValue)
+                        HasChanged = true;
+                    SongAttributes.Year = newValue;
+                    break;
+                case "song_length":
+                    if (SongAttributes.Length != newValue)
+                        HasChanged = true;
+                    SongAttributes.Length = newValue;
                     break;
             }
         }

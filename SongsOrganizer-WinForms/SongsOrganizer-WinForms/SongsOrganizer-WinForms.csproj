@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EA37872C-CE19-400C-AF97-B9BE59D658AF}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>SongsOrganizer_WinForms</RootNamespace>
-    <AssemblyName>SongsOrganizer-WinForms</AssemblyName>
+    <RootNamespace>zCHSongManager</RootNamespace>
+    <AssemblyName>zCHSongManager</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

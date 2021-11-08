@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SongsOrganizer-WinForms")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("zCHSongManager")]
+[assembly: AssemblyDescription("A tool to help manage your CloneHero Song Collection")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SongsOrganizer-WinForms")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCompany("zH4x™")]
+[assembly: AssemblyProduct("zCHSongManager")]
+[assembly: AssemblyCopyright("Copyright © 2021 Zero Productions 2k")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -77,5 +77,10 @@ namespace zCHSongManager
         {
 
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

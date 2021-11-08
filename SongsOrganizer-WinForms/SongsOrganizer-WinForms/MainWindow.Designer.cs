@@ -31,23 +31,23 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.songsGrid = new System.Windows.Forms.DataGridView();
+            this.songsGridContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editSongContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSongDirectoryContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSonginiFileContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.markForDeletionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.revertChangesContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.chooseDirectoryMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadSongsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.revertChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteMarkedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.songsGridContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editSongContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.markForDeletionContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.revertChangesContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openSongDirectoryContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openSonginiFileContextMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.songsGrid)).BeginInit();
-            this.menuStrip1.SuspendLayout();
             this.songsGridContextMenuStrip.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -80,6 +80,58 @@
             this.songsGrid.RowContextMenuStripNeeded += new System.Windows.Forms.DataGridViewRowContextMenuStripNeededEventHandler(this.songsGrid_RowContextMenuStripNeeded);
             this.songsGrid.RowPrePaint += new System.Windows.Forms.DataGridViewRowPrePaintEventHandler(this.songsGrid_RowPrePaint);
             // 
+            // songsGridContextMenuStrip
+            // 
+            this.songsGridContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editSongContextMenuItem,
+            this.openSongDirectoryContextMenuItem,
+            this.openSonginiFileContextMenuItem,
+            this.contextMenuSeparator,
+            this.markForDeletionContextMenuItem,
+            this.revertChangesContextMenuItem});
+            this.songsGridContextMenuStrip.Name = "songsGridContextMenuStrip";
+            this.songsGridContextMenuStrip.Size = new System.Drawing.Size(185, 120);
+            // 
+            // editSongContextMenuItem
+            // 
+            this.editSongContextMenuItem.Name = "editSongContextMenuItem";
+            this.editSongContextMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.editSongContextMenuItem.Text = "Edit Song";
+            this.editSongContextMenuItem.Click += new System.EventHandler(this.editSongContextMenuItem_Click);
+            // 
+            // openSongDirectoryContextMenuItem
+            // 
+            this.openSongDirectoryContextMenuItem.Name = "openSongDirectoryContextMenuItem";
+            this.openSongDirectoryContextMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.openSongDirectoryContextMenuItem.Text = "Open Song Directory";
+            this.openSongDirectoryContextMenuItem.Click += new System.EventHandler(this.openSongDirectoryContextMenuItem_Click);
+            // 
+            // openSonginiFileContextMenuItem
+            // 
+            this.openSonginiFileContextMenuItem.Name = "openSonginiFileContextMenuItem";
+            this.openSonginiFileContextMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.openSonginiFileContextMenuItem.Text = "Open song.ini File";
+            this.openSonginiFileContextMenuItem.Click += new System.EventHandler(this.openSonginiFileContextMenuItem_Click);
+            // 
+            // contextMenuSeparator
+            // 
+            this.contextMenuSeparator.Name = "contextMenuSeparator";
+            this.contextMenuSeparator.Size = new System.Drawing.Size(181, 6);
+            // 
+            // markForDeletionContextMenuItem
+            // 
+            this.markForDeletionContextMenuItem.Name = "markForDeletionContextMenuItem";
+            this.markForDeletionContextMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.markForDeletionContextMenuItem.Text = "Mark for deletion";
+            this.markForDeletionContextMenuItem.Click += new System.EventHandler(this.markForDeletionContextMenuItem_Click);
+            // 
+            // revertChangesContextMenuItem
+            // 
+            this.revertChangesContextMenuItem.Name = "revertChangesContextMenuItem";
+            this.revertChangesContextMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.revertChangesContextMenuItem.Text = "Revert changes";
+            this.revertChangesContextMenuItem.Click += new System.EventHandler(this.revertChangesContextMenuItem_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -99,7 +151,7 @@
             this.chooseDirectoryMenuItem.Name = "chooseDirectoryMenuItem";
             this.chooseDirectoryMenuItem.Size = new System.Drawing.Size(110, 20);
             this.chooseDirectoryMenuItem.Text = "Choose Directory";
-            this.chooseDirectoryMenuItem.Click += new System.EventHandler(this.chooseDirectoryMenuItem_Click);
+            this.chooseDirectoryMenuItem.Click += new System.EventHandler(this.ChooseDirectoryMenuItem_Click);
             // 
             // reloadSongsToolStripMenuItem
             // 
@@ -129,58 +181,6 @@
             this.deleteMarkedToolStripMenuItem.Text = "Delete Marked";
             this.deleteMarkedToolStripMenuItem.Click += new System.EventHandler(this.deleteMarkedToolStripMenuItem_Click);
             // 
-            // songsGridContextMenuStrip
-            // 
-            this.songsGridContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editSongContextMenuItem,
-            this.openSongDirectoryContextMenuItem,
-            this.openSonginiFileContextMenuItem,
-            this.contextMenuSeparator,
-            this.markForDeletionContextMenuItem,
-            this.revertChangesContextMenuItem});
-            this.songsGridContextMenuStrip.Name = "songsGridContextMenuStrip";
-            this.songsGridContextMenuStrip.Size = new System.Drawing.Size(185, 142);
-            // 
-            // editSongContextMenuItem
-            // 
-            this.editSongContextMenuItem.Name = "editSongContextMenuItem";
-            this.editSongContextMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.editSongContextMenuItem.Text = "Edit Song";
-            this.editSongContextMenuItem.Click += new System.EventHandler(this.editSongContextMenuItem_Click);
-            // 
-            // contextMenuSeparator
-            // 
-            this.contextMenuSeparator.Name = "contextMenuSeparator";
-            this.contextMenuSeparator.Size = new System.Drawing.Size(181, 6);
-            // 
-            // markForDeletionContextMenuItem
-            // 
-            this.markForDeletionContextMenuItem.Name = "markForDeletionContextMenuItem";
-            this.markForDeletionContextMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.markForDeletionContextMenuItem.Text = "Mark for deletion";
-            this.markForDeletionContextMenuItem.Click += new System.EventHandler(this.markForDeletionContextMenuItem_Click);
-            // 
-            // revertChangesContextMenuItem
-            // 
-            this.revertChangesContextMenuItem.Name = "revertChangesContextMenuItem";
-            this.revertChangesContextMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.revertChangesContextMenuItem.Text = "Revert changes";
-            this.revertChangesContextMenuItem.Click += new System.EventHandler(this.revertChangesContextMenuItem_Click);
-            // 
-            // openSongDirectoryContextMenuItem
-            // 
-            this.openSongDirectoryContextMenuItem.Name = "openSongDirectoryContextMenuItem";
-            this.openSongDirectoryContextMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.openSongDirectoryContextMenuItem.Text = "Open Song Directory";
-            this.openSongDirectoryContextMenuItem.Click += new System.EventHandler(this.openSongDirectoryContextMenuItem_Click);
-            // 
-            // openSonginiFileContextMenuItem
-            // 
-            this.openSonginiFileContextMenuItem.Name = "openSonginiFileContextMenuItem";
-            this.openSonginiFileContextMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.openSonginiFileContextMenuItem.Text = "Open song.ini File";
-            this.openSonginiFileContextMenuItem.Click += new System.EventHandler(this.openSonginiFileContextMenuItem_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,9 +193,9 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.songsGrid)).EndInit();
+            this.songsGridContextMenuStrip.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.songsGridContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

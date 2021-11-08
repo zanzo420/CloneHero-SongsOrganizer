@@ -88,7 +88,7 @@ namespace zCHSongManager
             }
         }
 
-        private void chooseDirectoryMenuItem_Click(object sender, EventArgs e)
+        private void ChooseDirectoryMenuItem_Click(object sender, EventArgs e)
         {
             ChooseSongsDirectory();
         }
